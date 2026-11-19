@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Palestra 50</title>
+<meta name="theme-color" content="#0E1620">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Palestra 50">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<!-- Schermate di avvio: evitano il lampo bianco all'apertura dall'icona -->
+<link rel="apple-touch-startup-image" href="splash-1170x2532.png"
+      media="(device-width:390px) and (device-height:844px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)">
+<link rel="apple-touch-startup-image" href="splash-1125x2436.png"
+      media="(device-width:375px) and (device-height:812px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)">
+<link rel="apple-touch-startup-image" href="splash-1284x2778.png"
+      media="(device-width:428px) and (device-height:926px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)">
+<link rel="apple-touch-startup-image" href="splash-1179x2556.png"
+      media="(device-width:393px) and (device-height:852px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="rotateMsg" aria-live="polite"><div><b>Ruota il telefono in verticale</b><p>L'app si usa in verticale. Per non farla girare più, sull'iPhone attiva il blocco della rotazione dal Centro di controllo.</p></div></div>
+<!-- Intro di apertura: si anima per 3 secondi e resta sull'ultimo fotogramma
+     finché l'utente non tocca lo schermo -->
+<div class="splash" id="splash">
+  <div class="ver num">9.10 1711</div>
+  <svg class="logo" viewBox="0 0 120 120">
+    <defs>
+      <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FFD27A"/><stop offset="1" stop-color="#F0951A"/>
+      </linearGradient>
+    </defs>
+    <circle class="ring" cx="60" cy="60" r="44" fill="none" stroke="url(#logoGrad)"
+            stroke-width="9" stroke-linecap="round" stroke-dasharray="214 62.5"
+            transform="rotate(-4.3 60 60)"/>
+    <rect class="bar b1" x="39" y="66" width="11" height="18" rx="5.5" fill="#EAF1F8"/>
+    <rect class="bar b2" x="54" y="54" width="11" height="30" rx="5.5" fill="#EAF1F8"/>
+    <rect class="bar b3" x="69" y="40" width="11" height="44" rx="5.5" fill="#4FC3A1"/>
+  </svg>
+  <div class="word">PALESTRA <b>50</b></div>
+  <div class="tag">Forza · Mobilità · Linea</div>
+  <div class="goal" id="splashGoal"></div>
+  <div class="quote" id="splashQuote"></div>
+  <div class="hint">Tocca per iniziare</div>
+</div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="row">
+      <svg class="mark" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#F5A524" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="214 62.5" transform="rotate(-4.3 60 60)"/>
+        <rect x="39" y="66" width="11" height="18" rx="5.5" fill="#EAF1F8"/>
+        <rect x="54" y="54" width="11" height="30" rx="5.5" fill="#EAF1F8"/>
+        <rect x="69" y="40" width="11" height="44" rx="5.5" fill="#4FC3A1"/>
+      </svg>
+      <h1 id="topTitle">Oggi</h1>
+      <span class="chip" id="topChip">—</span>
+    </div>
+    <!-- Fascia rossa della settimana di scarico: resta in cima in ogni
+         schermata, sessione compresa, finché la settimana non è passata -->
+    <button class="deload" id="deloadBar" hidden></button>
+  </header>
+
+  <!-- OGGI: sedute del giorno (mobilità breve e allenamento), la pagina dopo l'intro -->
+  <main id="view-home" class="view active"></main>
+
+  <!-- SESSIONE in corso -->
+  <main id="view-session" class="view"></main>
+
+  <!-- PROGRESSI: tre riquadri (percorso, esercizi, misure) -->
+  <main id="view-prog" class="view"></main>
+
+  <!-- STORICO -->
+  <main id="view-history" class="view"></main>
+
+  <!-- CATALOGO ESERCIZI -->
+  <main id="view-catalog" class="view"></main>
+
+  <!-- PROGRAMMA / IMPOSTAZIONI -->
+  <main id="view-settings" class="view"></main>
+
+  <!-- Barra comandi della sessione: resta in basso, nella zona del pollice -->
+  <div class="actionbar" id="actionBar"></div>
+
+  <nav class="nav" id="nav">
+    <button data-go="home" class="active">
+      <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+      Oggi
+    </button>
+    <button data-go="prog">
+      <svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-5 3 3 5-7"/></svg>
+      Progressi
+    </button>
+    <button data-go="catalog">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="m16 16 4 4"/></svg>
+      Esercizi
+    </button>
+    <button data-go="settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/></svg>
+      Programma
+    </button>
+  </nav>
+</div>
+
+<!-- Timer di recupero a tutto schermo -->
+<div class="timer" id="timer">
+  <div class="deload strip" id="deloadTimerBar" hidden></div>
+  <div style="position:relative;display:grid;place-items:center">
+    <svg class="ring" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" stroke="#2B3B4E" stroke-width="7" fill="none"/>
+      <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FFD27A"/><stop offset="1" stop-color="#F0951A"/></linearGradient></defs>
+      <circle id="ringFill" cx="50" cy="50" r="45" stroke="url(#ringGrad)" stroke-width="7" fill="none"
+              stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0"/>
+    </svg>
+    <div class="count num" id="timerCount" role="timer" aria-live="polite" aria-atomic="true">0:00</div>
+  </div>
+  <p class="what" id="timerWhat"></p>
+  <div class="actions">
+    <button class="btn secondary" id="timerMinus">−15 s</button>
+    <button class="btn secondary" id="timerPlus">+15 s</button>
+  </div>
+  <div class="actions">
+    <button class="btn secondary" id="timerMin">Riduci</button>
+    <button class="btn" id="timerSkip">Riprendi ora</button>
+  </div>
+  <div class="actions">
+    <button class="btn ghost" id="timerStop">Ferma il timer</button>
+  </div>
+</div>
+
+<!-- Timer miniaturizzato: resta visibile mentre si usa il resto dell'app -->
+<div class="mini" id="miniTimer" role="status" aria-live="polite">
+  <button id="miniExpand"><span class="num" id="miniCount">0:00</span><span class="small" id="miniWhat"></span></button>
+  <button class="mini-skip" id="miniSkip">Salta</button>
+  <button class="mini-skip" id="miniStop" aria-label="Ferma il timer">✕</button>
+</div>
+
+<!-- Scheda informativa esercizio -->
+<div class="sheet" id="sheet"><div class="panel" id="sheetPanel"></div></div>
+
+<!-- Modale generica (disclaimer, fine sessione) -->
+<div class="modal" id="modal"><div class="box" id="modalBox"></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>

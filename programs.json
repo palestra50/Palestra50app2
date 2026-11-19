@@ -1,0 +1,1764 @@
+{
+ "version": 1,
+ "goals": {
+  "hypertrophy": {
+   "label": "Ipertrofia",
+   "sets": 3,
+   "repsLow": 8,
+   "repsHigh": 12,
+   "rest": 75,
+   "rpe": "7-8",
+   "source": "ACSM 2026 (Currier et al.): almeno 10 serie settimanali per gruppo muscolare (un minimo, con benefici che crescono fino a 18-20); il cedimento non è necessario e le prove non fissano valori precisi di RIR (2-3 ripetizioni di riserva: regola operativa dell'app). Singer et al. 2024: recuperi oltre 60 s lievemente migliori, nessun vantaggio oltre 90 s"
+  },
+  "strength": {
+   "label": "Forza",
+   "sets": 3,
+   "repsLow": 4,
+   "repsHigh": 6,
+   "rest": 120,
+   "rpe": "8",
+   "source": "ACSM 2026 (Currier et al.): forza con carichi ≥80% del massimale per 2-3 serie per esercizio, esercizi chiave all'inizio. 4-6 ripetizioni e 2-3 minuti di recupero: regola operativa dell'app"
+  },
+  "endurance": {
+   "label": "Resistenza muscolare",
+   "sets": 3,
+   "repsLow": 15,
+   "repsHigh": 20,
+   "rest": 40,
+   "rpe": "7",
+   "source": "ACSM 2026 (Currier et al.): nessuna prova affidabile su quali variabili migliorino la resistenza muscolare. 15-20 ripetizioni e recuperi brevi sono una regola operativa dell'app, usata nelle fasi di adattamento e densità"
+  },
+  "core": {
+   "label": "Core",
+   "sets": 3,
+   "repsLow": 12,
+   "repsHigh": 15,
+   "rest": 40,
+   "rpe": "7",
+   "source": "ACSM 2026: tutti i gruppi muscolari principali almeno 2 volte a settimana. Dosi del core (2-3 serie, recuperi brevi): regola operativa dell'app"
+  },
+  "stretch": {
+   "label": "Allungamento",
+   "sets": 3,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 15,
+   "hold": 30,
+   "rpe": "tensione moderata",
+   "source": "ACSM (Garber et al. 2011, Position Stand) – flessibilità: tenute di 10-30 s, 30-60 s negli adulti più anziani, ~60 s totali per muscolo, almeno 2-3 giorni a settimana; i risultati migliori con lavoro quotidiano"
+  },
+  "mobility": {
+   "label": "Mobilità dinamica",
+   "sets": 2,
+   "repsLow": 8,
+   "repsHigh": 10,
+   "rest": 15,
+   "hold": 0,
+   "rpe": "riscaldamento",
+   "source": "Behm et al. 2016, Appl Physiol Nutr Metab 41(1):1-11 (revisione sistematica): lo stretching dinamico fatto pochi minuti prima dell'attività migliora la prestazione in misura piccola-moderata; tutti i tipi di allungamento aumentano l'escursione articolare. Scelta degli esercizi: regola operativa dell'app"
+  },
+  "pullupActivation": {
+   "label": "Trazioni · attivazione",
+   "sets": 2,
+   "repsLow": 6,
+   "repsHigh": 8,
+   "rest": 45,
+   "hold": 20,
+   "rpe": "5-6",
+   "source": "Progressione trazioni: attivazione scapolare e sospensione (regola operativa dell'app)"
+  },
+  "pullupStrength": {
+   "label": "Trazioni · eccentriche",
+   "sets": 4,
+   "repsLow": 3,
+   "repsHigh": 5,
+   "rest": 120,
+   "rpe": "7-8, mai a cedimento",
+   "source": "Progressione trazioni: eccentriche lente 4-5 s, recupero pieno (regola operativa dell'app)"
+  },
+  "pullupIso": {
+   "label": "Trazioni · isometria",
+   "sets": 4,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 90,
+   "hold": 10,
+   "rpe": "7-8",
+   "source": "Progressione trazioni: tenute di 8-12 s nell'angolo critico (regola operativa dell'app)"
+  },
+  "pullupVolume": {
+   "label": "Trazioni · volume assistito",
+   "sets": 3,
+   "repsLow": 5,
+   "repsHigh": 8,
+   "rest": 90,
+   "rpe": "7, due ripetizioni di margine",
+   "source": "Progressione trazioni: volume assistito, band o macchina (regola operativa dell'app)"
+  },
+  "finisher": {
+   "label": "Finale metabolico",
+   "sets": 8,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 60,
+   "hold": 30,
+   "rpe": "scatto 8/10 · recupero 3/10",
+   "source": "Chang et al. 2026 (Nutrition & Metabolism, 61 RCT): l'HIIT è la modalità più efficace sul grasso viscerale con dose minima efficace ~400 MET-min/settimana ed effetto massimo verso 1000-1100; anche i pesi lo riducono, con effetto minore"
+  },
+  "cardioHiit": {
+   "label": "Intervalli",
+   "sets": 8,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 60,
+   "hold": 30,
+   "rpe": "scatto 8/10 · recupero 3/10",
+   "source": "Chang et al. 2026 (Nutrition & Metabolism, 61 RCT) e Xu et al. 2026 (BMC Sports Sci Med Rehabil, 60 RCT): l'HIIT è la modalità più efficace sul grasso viscerale; 400 MET-min/settimana sono la dose minima efficace, l'effetto massimo verso 1000-1100"
+  },
+  "cardioSteady": {
+   "label": "Ritmo costante",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "hold": 1200,
+   "rpe": "5-6/10, frasi brevi",
+   "source": "OMS 2020 (Bull et al., Br J Sports Med 54(24):1451-1462): 150-300 min/settimana di attività aerobica moderata o 75-150 vigorosa. Durata delle sedute: regola operativa dell'app"
+  },
+  "pullupStrict": {
+   "label": "Trazioni · serie pulite",
+   "sets": 5,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 120,
+   "rpe": "sempre 2 ripetizioni di margine, mai a cedimento",
+   "source": "Sánchez-Moreno et al. 2020, J Strength Cond Res 34(4):911-917: serie con fatica moderata (perdita di velocità 25%) migliorano forza e ripetizioni più delle serie spinte verso il cedimento"
+  },
+  "pullupTest": {
+   "label": "Test · massimo di trazioni pulite",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "rpe": "massimo con tecnica pulita: ti fermi quando la ripetizione si sporca",
+   "source": "Test di massime ripetizioni a corpo libero, come in Sánchez-Moreno et al. 2017, Int J Sports Physiol Perform 12(10):1378-1384"
+  },
+  "pullupPower": {
+   "label": "Trazioni · esplosive al petto",
+   "sets": 4,
+   "repsLow": 2,
+   "repsHigh": 4,
+   "rest": 150,
+   "rpe": "7, ogni ripetizione veloce",
+   "source": "Preparazione al muscle-up – Walker et al. 2023, Int J Exerc Sci 16(1):1451-1460"
+  },
+  "dipStrength": {
+   "label": "Dip · forza di spinta",
+   "sets": 3,
+   "repsLow": 5,
+   "repsHigh": 8,
+   "rest": 120,
+   "rpe": "7, mai a cedimento",
+   "source": "McKenzie et al. 2022, IJERPH 19(21):14390"
+  },
+  "muSkill": {
+   "label": "Muscle-up · tecnica",
+   "sets": 4,
+   "repsLow": 3,
+   "repsHigh": 5,
+   "rest": 120,
+   "rpe": "6-7, lavoro tecnico, mai a fatica",
+   "source": "Walker et al. 2023, Int J Exerc Sci 16(1):1451-1460"
+  },
+  "muPractice": {
+   "label": "Muscle-up · serie",
+   "sets": 4,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 180,
+   "rpe": "sempre 1-2 ripetizioni di margine",
+   "source": "Walker et al. 2023; Summitt et al. 2016, Sports Health 8(6):541-546"
+  },
+  "muTest": {
+   "label": "Test · massimo di muscle-up",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "rpe": "massimo con tecnica pulita, senza slancio di gambe",
+   "source": "Test di massime ripetizioni; Walker et al. 2023, Int J Exerc Sci 16(1):1451-1460"
+  },
+  "burpee": {
+   "label": "Burpees · Spartan",
+   "sets": 3,
+   "repsLow": 6,
+   "repsHigh": 15,
+   "rest": 60,
+   "rpe": "ritmo tranquillo e forma pulita: 2-3 ripetizioni di margine",
+   "source": "Spartan (2025): nelle gare Sprint, Super, Beast e Ultra un ostacolo fallito costa 30 burpees (petto a terra, salto con le mani sopra la testa). Livelli e ripetizioni: regola operativa dell'app"
+  },
+  "burpeeTest": {
+   "label": "Spartan Race check · burpees",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "rpe": "di fila, a ritmo tranquillo: ti fermi quando la forma si sporca",
+   "source": "Spartan (2025): penalità di 30 burpees per ostacolo fallito. Il check misura quanti ne fai di fila in forma corretta (regola operativa dell'app)"
+  },
+  "spHang": {
+   "label": "Sospensione · presa per gli ostacoli",
+   "sets": 3,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 60,
+   "hold": 20,
+   "rpe": "con margine, spalle attive",
+   "source": "Monkey bars, multi-rig, fune e muri chiedono di restare appesi a lungo (guida Spartan agli ostacoli). Durata delle tenute: regola operativa dell'app"
+  },
+  "hangTest": {
+   "label": "Spartan Race check · sospensione",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "hold": 30,
+   "rpe": "a cronometro, finché la presa tiene con le spalle attive",
+   "source": "Check della presa per gli ostacoli sospesi; traguardo di 60 secondi: regola operativa dell'app"
+  },
+  "carry": {
+   "label": "Trasporto · Spartan",
+   "sets": 3,
+   "repsLow": 30,
+   "repsHigh": 40,
+   "rest": 90,
+   "rpe": "presa salda, busto dritto, passi corti e regolari",
+   "source": "Nella Sprint ci sono trasporti di sacchi (27 kg per gli uomini), secchi, pietre e taniche (guida Spartan agli ostacoli). Dosi: regola operativa dell'app"
+  },
+  "cardioRun": {
+   "label": "Corsa-camminata",
+   "sets": 1,
+   "repsLow": 1,
+   "repsHigh": 1,
+   "rest": 0,
+   "hold": 60,
+   "rpe": "corsa lenta in cui riesci a parlare; dolore al ginocchio al massimo 2 su 10",
+   "source": "Esculier et al. 2018, Br J Sports Med 52(10):659-666: nel dolore femoro-rotuleo dei corridori il dolore durante la corsa resta entro 2/10, torna come prima entro un'ora e non aumenta la mattina dopo; prima si allunga la distanza, poi velocità e salite; corsa alternata a camminata consentita. Willy et al. 2019, JOSPT: aumento graduale. Livelli: regola operativa dell'app"
+  },
+  "legStrength": {
+   "label": "Forza gambe",
+   "sets": 3,
+   "repsLow": 6,
+   "repsHigh": 8,
+   "rest": 120,
+   "rpe": "7-8",
+   "source": "ACSM 2026 (Position Stand): forza con carichi elevati, 2-3 serie per esercizio. Per le gambe l'obiettivo è la forza che sostiene il ginocchio, non l'ipertrofia: 6-8 ripetizioni con 2-3 di riserva sono una regola operativa dell'app"
+  },
+  "legTone": {
+   "label": "Tono e resistenza gambe",
+   "sets": 3,
+   "repsLow": 15,
+   "repsHigh": 20,
+   "rest": 45,
+   "rpe": "7",
+   "source": "Linea guida sul dolore femoro-rotuleo (Willy et al. 2019, sintesi AAFP 2020): esercizi per l'anca posteriore e per il quadricipite, ad alto numero di ripetizioni. ACSM 2026: nessuna prova affidabile su quali variabili migliorino la resistenza muscolare. 15-20 ripetizioni con 45 s di recupero sono una regola operativa dell'app"
+  },
+  "power": {
+   "label": "Esplosività",
+   "sets": 3,
+   "repsLow": 5,
+   "repsHigh": 6,
+   "rest": 120,
+   "rpe": "6-7",
+   "source": "ACSM 2026 (Position Stand): la potenza migliora con carichi moderati (30-70% del massimale), volume basso-moderato (al massimo 24 ripetizioni × serie) e fase concentrica alla massima velocità volontaria. Il recupero di 2 minuti è una regola operativa dell'app"
+  },
+  "corePower": {
+   "label": "Core esplosivo",
+   "sets": 3,
+   "repsLow": 8,
+   "repsHigh": 8,
+   "rest": 45,
+   "rpe": "lanci alla massima velocità, ogni ripetizione fresca",
+   "source": "ACSM 2026 (Position Stand): la potenza migliora con carichi moderati, volume basso-moderato (al massimo 24 ripetizioni × serie) e fase concentrica alla massima velocità volontaria. 3×8 (4 lanci per lato) e recupero di 45 s in superserie: regola operativa dell'app"
+  }
+ },
+ "programs": [
+  {
+   "id": "macro2027",
+   "name": "Macrociclo 2027 → Spartan Race di settembre",
+   "target": "2027-09-19",
+   "cycleWeeks": 4,
+   "periodization": "macrociclo a fasi: adattamento → ipertrofia → forza → ipertrofia → misto → densità e tono → ipertrofia → forza → densità per la gara, poi ciclo continuo",
+   "summary": "Programma a fasi di 52 settimane, fino alla Spartan Race di Misano del 18-19 settembre 2027. Sei sedute a settimana: tre di pesi, due aerobiche e una di mobilità. Fino al 30 maggio: prima si preparano tessuti e tecnica, poi volume per l'ipertrofia, forza, di nuovo volume, un blocco misto e densità e tono (da aprile la forza è in mantenimento, due sedute, per il Tuscany Trail e il traguardo Spartan di aprile). Da giugno tornano tre sedute di pesi: volume per il tono muscolare, un blocco di forza e due settimane di densità prima della gara, con la settimana della gara leggera. Dopo la gara il programma non si ferma: ciclo continuo di 8 settimane di volume e 4 di forza, finché non fissi nuovi obiettivi. Ogni quarta settimana è di scarico.",
+   "kneeSafeFirst": true,
+   "phases": [
+    {
+     "name": "Adattamento",
+     "weeks": 4,
+     "goals": [
+      "endurance",
+      "hypertrophy",
+      "endurance"
+     ],
+     "aim": "Preparare tendini, articolazioni e tecnica prima di alzare i carichi.",
+     "stretchEmphasis": 0
+    },
+    {
+     "name": "Ipertrofia 1",
+     "weeks": 8,
+     "goals": [
+      "hypertrophy",
+      "strength",
+      "hypertrophy"
+     ],
+     "aim": "Accumulo di volume nella fascia 8-12 ripetizioni: è qui che si costruisce il grosso della massa muscolare.",
+     "stretchEmphasis": 0
+    },
+    {
+     "name": "Forza",
+     "weeks": 6,
+     "goals": [
+      "strength",
+      "hypertrophy",
+      "strength"
+     ],
+     "aim": "Alzare il tetto di carico con 4-6 ripetizioni: più forza oggi significa poter usare pesi più alti nella fase di volume successiva, quindi più stimolo per l'ipertrofia.",
+     "stretchEmphasis": 1
+    },
+    {
+     "name": "Ipertrofia 2",
+     "weeks": 8,
+     "goals": [
+      "hypertrophy",
+      "hypertrophy",
+      "endurance"
+     ],
+     "aim": "Secondo blocco di volume, ora con i carichi più alti guadagnati nella fase di forza: è la fase in cui il volume muscolare diventa visibile.",
+     "stretchEmphasis": 0
+    },
+    {
+     "name": "Forza-ipertrofia",
+     "weeks": 5,
+     "goals": [
+      "strength",
+      "hypertrophy",
+      "hypertrophy"
+     ],
+     "aim": "Blocco misto: si mantiene la forza e si continua a stimolare la crescita, riducendo il rischio di stallo.",
+     "stretchEmphasis": 1
+    },
+    {
+     "name": "Densità e tono",
+     "weeks": 5,
+     "goals": [
+      "hypertrophy",
+      "endurance",
+      "endurance"
+     ],
+     "aim": "Recuperi più brevi e più lavoro sul core: si mantiene la massa costruita e si lavora sulla definizione, che è ciò che rende visibile il muscolo.",
+     "stretchEmphasis": 2
+    },
+    {
+     "name": "Rifinitura",
+     "weeks": 1,
+     "goals": [
+      "hypertrophy",
+      "endurance",
+      "hypertrophy"
+     ],
+     "aim": "Settimana leggera dopo il Tuscany Trail: volume ridotto e mobilità curata, prima di tornare a tre sedute di pesi a giugno.",
+     "stretchEmphasis": 2,
+     "deload": true
+    },
+    {
+     "name": "Ipertrofia 3",
+     "weeks": 8,
+     "goals": [
+      "hypertrophy",
+      "hypertrophy",
+      "strength"
+     ],
+     "aim": "Da giugno di nuovo tre sedute di pesi: volume nella fascia 8-12 ripetizioni per il tono muscolare e la prestanza, con una seduta di forza per non perdere il carico costruito.",
+     "stretchEmphasis": 0
+    },
+    {
+     "name": "Forza per la gara",
+     "weeks": 4,
+     "goals": [
+      "strength",
+      "hypertrophy",
+      "strength"
+     ],
+     "aim": "Un blocco di forza ad agosto: carichi alti con 4-6 ripetizioni, utili per trazioni, trasporti e ostacoli della Spartan Race.",
+     "stretchEmphasis": 1
+    },
+    {
+     "name": "Densità per la gara",
+     "weeks": 2,
+     "goals": [
+      "hypertrophy",
+      "endurance",
+      "endurance"
+     ],
+     "aim": "Le due settimane prima della gara: recuperi più brevi e ripetizioni più alte, la resistenza che serve fra un ostacolo e l'altro.",
+     "stretchEmphasis": 1
+    },
+    {
+     "name": "Settimana della gara",
+     "weeks": 1,
+     "goals": [
+      "hypertrophy",
+      "endurance",
+      "hypertrophy"
+     ],
+     "aim": "Settimana della Spartan Race di Misano: forza leggera (una serie in meno, stessi carichi), nessun check, arrivi alla gara riposato.",
+     "stretchEmphasis": 2,
+     "deload": true
+    }
+   ],
+   "strengthDays": [
+    {
+     "label": "Forza A · Gambe e spinta",
+     "goal": "hypertrophy",
+     "slots": [
+      {
+       "patterns": [
+        "squat"
+       ],
+       "goal": "legStrength",
+       "note": "Forza che sostiene il ginocchio"
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "hinge"
+       ],
+       "goal": "legTone",
+       "note": "Glutei e femorali",
+       "cycle": [
+        "g_backext",
+        "g_goodmorning",
+        "g_rdl"
+       ],
+       "cycleFrom": "2026-11-16"
+      },
+      {
+       "patterns": [
+        "pullH",
+        "pullV"
+       ]
+      },
+      {
+       "patterns": [
+        "quadIso"
+       ],
+       "goal": "legTone",
+       "note": "Quadricipite, parte vicina al ginocchio",
+       "ss": "1"
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "focus": [
+        "obliques"
+       ],
+       "goal": "core",
+       "note": "Obliqui",
+       "ss": "1"
+      },
+      {
+       "patterns": [
+        "arms"
+       ],
+       "focus": [
+        "tricepsLong"
+       ],
+       "fallback": [
+        "triceps"
+       ],
+       "goal": "hypertrophy",
+       "note": "Tricipite, capo lungo",
+       "ss": "2"
+      },
+      {
+       "patterns": [
+        "pullH"
+       ],
+       "focus": [
+        "reardelt"
+       ],
+       "goal": "hypertrophy",
+       "note": "Deltoide posteriore",
+       "ss": "2",
+       "keep": "2026-11-23"
+      },
+      {
+       "patterns": [
+        "hipAdd",
+        "squat"
+       ],
+       "focus": [
+        "adductors"
+       ],
+       "goal": "legTone",
+       "note": "Adduttori (interno coscia)",
+       "ss": "3"
+      },
+      {
+       "patterns": [
+        "hipAbd"
+       ],
+       "focus": [
+        "abductors"
+       ],
+       "goal": "legTone",
+       "note": "Medio gluteo: stabilità del ginocchio",
+       "ss": "3"
+      }
+     ]
+    },
+    {
+     "label": "Forza B · Parte alta e unilaterale",
+     "goal": "strength",
+     "slots": [
+      {
+       "patterns": [
+        "pushH"
+       ],
+       "focus": [
+        "upperChest"
+       ],
+       "loose": true,
+       "note": "Petto, fasci alti"
+      },
+      {
+       "patterns": [
+        "pullV",
+        "pullH"
+       ],
+       "skipIfPullBlock": true
+      },
+      {
+       "patterns": [
+        "lunge",
+        "squat"
+       ],
+       "goal": "legTone",
+       "note": "Lavoro unilaterale, controllo del ginocchio"
+      },
+      {
+       "patterns": [
+        "pushV",
+        "shoulderIso"
+       ],
+       "note": "Spalle"
+      },
+      {
+       "patterns": [
+        "arms"
+       ],
+       "focus": [
+        "biceps"
+       ],
+       "goal": "hypertrophy",
+       "note": "Bicipite",
+       "ss": "1"
+      },
+      {
+       "patterns": [
+        "arms"
+       ],
+       "focus": [
+        "triceps"
+       ],
+       "fallback": [
+        "tricepsLong"
+       ],
+       "goal": "hypertrophy",
+       "note": "Tricipite",
+       "ss": "1"
+      },
+      {
+       "patterns": [
+        "coreAnti",
+        "coreFlex"
+       ],
+       "focus": [
+        "abs"
+       ],
+       "goal": "core",
+       "note": "Addome",
+       "ss": "2"
+      },
+      {
+       "patterns": [
+        "forearm"
+       ],
+       "focus": [
+        "forearm"
+       ],
+       "goal": "endurance",
+       "note": "Avambracci e presa",
+       "ss": "2"
+      },
+      {
+       "patterns": [
+        "hamIso",
+        "hinge"
+       ],
+       "focus": [
+        "hamstrings"
+       ],
+       "fallback": [
+        "glute"
+       ],
+       "goal": "legTone",
+       "note": "Femorali",
+       "ss": "3"
+      },
+      {
+       "patterns": [
+        "calf"
+       ],
+       "goal": "legTone",
+       "note": "Polpacci",
+       "ss": "3"
+      }
+     ]
+    },
+    {
+     "label": "Forza C · Full body e core",
+     "goal": "endurance",
+     "slots": [
+      {
+       "patterns": [
+        "hinge"
+       ],
+       "focus": [
+        "power"
+       ],
+       "loose": true,
+       "goal": "power",
+       "looseGoal": "legTone",
+       "note": "Forza esplosiva",
+       "alternate": true
+      },
+      {
+       "patterns": [
+        "squat",
+        "lunge"
+       ],
+       "goal": "legStrength",
+       "note": "Forza che sostiene il ginocchio"
+      },
+      {
+       "patterns": [
+        "pullH"
+       ],
+       "focus": [
+        "chestSupported"
+       ],
+       "loose": true,
+       "note": "Rematore con il petto appoggiato: la schiena lavora già negli slanci e nei glutei"
+      },
+      {
+       "patterns": [
+        "pushH"
+       ],
+       "focus": [
+        "chestAdd"
+       ],
+       "loose": true,
+       "note": "Petto in adduzione (braccia verso il centro)"
+      },
+      {
+       "patterns": [
+        "shoulderIso"
+       ],
+       "ss": "1",
+       "focus": [
+        "cuff",
+        "lateralDelt"
+       ],
+       "note": "Spalle: deltoide laterale o cuffia dei rotatori, a blocchi alterni",
+       "cycleFocus": true,
+       "until": "2026-11-22"
+      },
+      {
+       "patterns": [
+        "arms"
+       ],
+       "focus": [
+        "brachialis"
+       ],
+       "goal": "hypertrophy",
+       "note": "Brachiale e brachioradiale",
+       "ss": "1"
+      },
+      {
+       "patterns": [
+        "coreFlex",
+        "coreAnti"
+       ],
+       "focus": [
+        "abs",
+        "obliques"
+       ],
+       "goal": "core",
+       "note": "Addome e obliqui",
+       "ss": "2"
+      },
+      {
+       "patterns": [
+        "traps"
+       ],
+       "focus": [
+        "upperTrap"
+       ],
+       "goal": "hypertrophy",
+       "note": "Trapezio superiore",
+       "ss": "2"
+      },
+      {
+       "patterns": [
+        "hinge"
+       ],
+       "focus": [
+        "glute"
+       ],
+       "goal": "legTone",
+       "note": "Glutei",
+       "ss": "3"
+      },
+      {
+       "patterns": [
+        "hipAbd",
+        "hipAdd"
+       ],
+       "focus": [
+        "abductors",
+        "adductors"
+       ],
+       "goal": "legTone",
+       "note": "Anca: medio gluteo e adduttori",
+       "ss": "3",
+       "until": "2026-11-22"
+      },
+      {
+       "patterns": [
+        "shoulderIso"
+       ],
+       "focus": [
+        "lateralDelt"
+       ],
+       "ss": "1",
+       "keep": "2026-11-23",
+       "from": "2026-11-23",
+       "note": "Deltoide laterale: ogni settimana"
+      },
+      {
+       "patterns": [
+        "shoulderIso"
+       ],
+       "focus": [
+        "cuff"
+       ],
+       "fallback": [
+        "lateralDelt"
+       ],
+       "ss": "3",
+       "keep": "2026-11-23",
+       "from": "2026-11-23",
+       "note": "Cuffia dei rotatori: ogni settimana (medio gluteo e adduttori restano in Forza A)"
+      }
+     ]
+    }
+   ],
+   "stretchDays": [
+    {
+     "label": "Mobilità · Anca, gambe e ginocchio",
+     "dynamic": 2,
+     "staticGroups": [
+      "Quadricipiti",
+      "Catena posteriore",
+      "Anca",
+      "Glutei",
+      "Polpacci",
+      "Adduttori"
+     ],
+     "count": 6
+    },
+    {
+     "label": "Mobilità · Colonna, spalle e parte alta",
+     "dynamic": 2,
+     "staticGroups": [
+      "Colonna",
+      "Petto",
+      "Dorso",
+      "Collo",
+      "Anca",
+      "Adduttori"
+     ],
+     "count": 6
+    }
+   ],
+   "loop": [
+    {
+     "name": "Ciclo continuo · volume",
+     "weeks": 8,
+     "goals": [
+      "hypertrophy",
+      "hypertrophy",
+      "strength"
+     ],
+     "aim": "Dopo la gara il programma continua: volume per il tono e la prestanza, con una seduta di forza. Si ripete con il blocco di forza finché non fissi nuovi obiettivi.",
+     "stretchEmphasis": 0
+    },
+    {
+     "name": "Ciclo continuo · forza",
+     "weeks": 4,
+     "goals": [
+      "strength",
+      "hypertrophy",
+      "strength"
+     ],
+     "aim": "Blocco di forza del ciclo continuo: carichi alti con 4-6 ripetizioni, poi si torna al volume.",
+     "stretchEmphasis": 1
+    }
+   ]
+  },
+  {
+   "id": "tono50",
+   "name": "Tono e ginocchio protetto",
+   "cycleWeeks": 4,
+   "periodization": "ondulata settimanale con scarico alla settimana 4",
+   "summary": "Tre sedute di forza con obiettivo che varia a ogni seduta (ipertrofia, forza, resistenza) due sedute aerobiche e una di mobilità. Ogni seduta di forza contiene almeno un esercizio a basso impatto per il ginocchio e un esercizio per la catena posteriore.",
+   "kneeSafeFirst": true,
+   "strengthDays": [
+    {
+     "label": "Forza A · Gambe e spinta",
+     "goal": "hypertrophy",
+     "slots": [
+      {
+       "patterns": [
+        "squat"
+       ],
+       "note": "Multiarticolare gambe"
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "hinge"
+       ],
+       "note": "Catena posteriore"
+      },
+      {
+       "patterns": [
+        "pullH",
+        "pullV"
+       ]
+      },
+      {
+       "patterns": [
+        "quadIso",
+        "hamIso",
+        "calf"
+       ],
+       "note": "Rinforzo articolare mirato"
+      }
+     ]
+    },
+    {
+     "label": "Forza B · Parte alta e unilaterale",
+     "goal": "strength",
+     "slots": [
+      {
+       "patterns": [
+        "pushH"
+       ],
+       "note": "Petto"
+      },
+      {
+       "patterns": [
+        "pullV",
+        "pullH"
+       ],
+       "skipIfPullBlock": true
+      },
+      {
+       "patterns": [
+        "lunge",
+        "squat"
+       ],
+       "note": "Lavoro unilaterale"
+      },
+      {
+       "patterns": [
+        "pushV",
+        "shoulderIso"
+       ],
+       "note": "Spalle"
+      },
+      {
+       "patterns": [
+        "arms"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "goal": "core"
+      }
+     ]
+    },
+    {
+     "label": "Forza C · Full body metabolico",
+     "goal": "endurance",
+     "slots": [
+      {
+       "patterns": [
+        "hinge"
+       ]
+      },
+      {
+       "patterns": [
+        "squat",
+        "lunge"
+       ]
+      },
+      {
+       "patterns": [
+        "pullH"
+       ]
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "calf",
+        "shoulderIso"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti",
+        "coreFlex"
+       ],
+       "goal": "core"
+      }
+     ]
+    }
+   ],
+   "stretchDays": [
+    {
+     "label": "Mobilità · Anca, gambe e ginocchio",
+     "dynamic": 2,
+     "staticGroups": [
+      "Quadricipiti",
+      "Catena posteriore",
+      "Anca",
+      "Glutei",
+      "Polpacci",
+      "Adduttori"
+     ],
+     "count": 6
+    },
+    {
+     "label": "Mobilità · Colonna e parte alta",
+     "dynamic": 2,
+     "staticGroups": [
+      "Colonna",
+      "Petto",
+      "Dorso",
+      "Collo",
+      "Anca"
+     ],
+     "count": 6
+    }
+   ]
+  },
+  {
+   "id": "ipertrofia6",
+   "name": "Ipertrofia progressiva",
+   "cycleWeeks": 6,
+   "periodization": "lineare a 6 settimane con scarico finale",
+   "summary": "Split spinta / gambe / trazione. Il volume cresce nelle prime settimane, l'intensità nelle ultime, l'ultima settimana è di scarico.",
+   "kneeSafeFirst": true,
+   "strengthDays": [
+    {
+     "label": "Spinta · Petto e spalle",
+     "goal": "hypertrophy",
+     "slots": [
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "pushV"
+       ]
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "shoulderIso"
+       ]
+      },
+      {
+       "patterns": [
+        "arms"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "goal": "core"
+      }
+     ]
+    },
+    {
+     "label": "Gambe · Quadricipiti e catena posteriore",
+     "goal": "hypertrophy",
+     "slots": [
+      {
+       "patterns": [
+        "squat"
+       ]
+      },
+      {
+       "patterns": [
+        "hinge"
+       ]
+      },
+      {
+       "patterns": [
+        "lunge",
+        "squat"
+       ]
+      },
+      {
+       "patterns": [
+        "hamIso",
+        "quadIso"
+       ]
+      },
+      {
+       "patterns": [
+        "calf"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Trazione · Dorso e braccia",
+     "goal": "strength",
+     "slots": [
+      {
+       "patterns": [
+        "pullV"
+       ]
+      },
+      {
+       "patterns": [
+        "pullH"
+       ]
+      },
+      {
+       "patterns": [
+        "pullH"
+       ]
+      },
+      {
+       "patterns": [
+        "arms"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti",
+        "coreFlex"
+       ],
+       "goal": "core"
+      }
+     ]
+    }
+   ],
+   "stretchDays": [
+    {
+     "label": "Mobilità · Catena posteriore e anca",
+     "dynamic": 2,
+     "staticGroups": [
+      "Catena posteriore",
+      "Anca",
+      "Glutei",
+      "Polpacci",
+      "Adduttori",
+      "Quadricipiti"
+     ],
+     "count": 6
+    },
+    {
+     "label": "Mobilità · Spalle e colonna",
+     "dynamic": 2,
+     "staticGroups": [
+      "Petto",
+      "Dorso",
+      "Colonna",
+      "Collo",
+      "Anca"
+     ],
+     "count": 6
+    }
+   ]
+  },
+  {
+   "id": "ricomp3",
+   "name": "Ricomposizione in 3 settimane",
+   "cycleWeeks": 3,
+   "periodization": "densità crescente, ciclo breve con scarico alla settimana 3",
+   "summary": "Sedute full body ad alta densità con recuperi brevi e più lavoro sul core, pensate per aumentare il dispendio energetico mantenendo il carico muscolare.",
+   "kneeSafeFirst": true,
+   "strengthDays": [
+    {
+     "label": "Full body A",
+     "goal": "endurance",
+     "slots": [
+      {
+       "patterns": [
+        "squat"
+       ]
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "pullH"
+       ]
+      },
+      {
+       "patterns": [
+        "hinge"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "goal": "core"
+      },
+      {
+       "patterns": [
+        "coreFlex",
+        "coreAnti"
+       ],
+       "goal": "core"
+      }
+     ]
+    },
+    {
+     "label": "Full body B",
+     "goal": "hypertrophy",
+     "slots": [
+      {
+       "patterns": [
+        "hinge"
+       ]
+      },
+      {
+       "patterns": [
+        "pushV"
+       ]
+      },
+      {
+       "patterns": [
+        "pullV"
+       ]
+      },
+      {
+       "patterns": [
+        "lunge"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "goal": "core"
+      }
+     ]
+    },
+    {
+     "label": "Full body C",
+     "goal": "endurance",
+     "slots": [
+      {
+       "patterns": [
+        "lunge",
+        "squat"
+       ]
+      },
+      {
+       "patterns": [
+        "pushH"
+       ]
+      },
+      {
+       "patterns": [
+        "pullH"
+       ]
+      },
+      {
+       "patterns": [
+        "calf"
+       ]
+      },
+      {
+       "patterns": [
+        "shoulderIso",
+        "arms"
+       ]
+      },
+      {
+       "patterns": [
+        "coreAnti"
+       ],
+       "goal": "core"
+      }
+     ]
+    }
+   ],
+   "stretchDays": [
+    {
+     "label": "Mobilità · Gambe e anca",
+     "dynamic": 3,
+     "staticGroups": [
+      "Quadricipiti",
+      "Catena posteriore",
+      "Anca",
+      "Glutei",
+      "Polpacci"
+     ],
+     "count": 5
+    },
+    {
+     "label": "Mobilità · Colonna e parte alta",
+     "dynamic": 3,
+     "staticGroups": [
+      "Colonna",
+      "Petto",
+      "Dorso",
+      "Collo",
+      "Adduttori"
+     ],
+     "count": 5
+    }
+   ]
+  }
+ ],
+ "coreSession": {
+  "label": "Blocco core facoltativo",
+  "count": 4,
+  "goal": "core"
+ },
+ "pullupBlock": {
+  "note": "Trazioni e muscle-up, obiettivo del programma: 15 trazioni pulite di fila e 2 muscle-up al 30 maggio 2027. Il lavoro cambia per tappe secondo il massimo di trazioni pulite registrato (test nella prima settimana di ogni blocco, subito dopo lo scarico), non per calendario.",
+  "target": {
+   "pullups": 15,
+   "muscleUps": 2
+  },
+  "stages": [
+   {
+    "id": "first",
+    "min": 0,
+    "label": "Prima trazione",
+    "why": "Negative, tenute e volume assistito finché non arriva la prima ripetizione pulita.",
+    "days": [
+     [
+      "activation",
+      "eccentric"
+     ],
+     [
+      "activation",
+      "isometric"
+     ],
+     [
+      "activation",
+      "volume"
+     ]
+    ]
+   },
+   {
+    "id": "reps",
+    "min": 1,
+    "label": "Prime ripetizioni",
+    "why": "Tante serie brevi di trazioni pulite, sempre con margine, più negative e volume assistito.",
+    "days": [
+     [
+      "activation",
+      "strict"
+     ],
+     [
+      "activation",
+      "eccentric"
+     ],
+     [
+      "activation",
+      "volume"
+     ]
+    ]
+   },
+   {
+    "id": "volume",
+    "min": 6,
+    "label": "Volume a corpo libero",
+    "why": "Serie pulite più lunghe, trazioni esplosive al petto e negative lente.",
+    "days": [
+     [
+      "activation",
+      "strict"
+     ],
+     [
+      "activation",
+      "power"
+     ],
+     [
+      "activation",
+      "eccentric"
+     ]
+    ]
+   },
+   {
+    "id": "muprep",
+    "min": 12,
+    "label": "Verso il muscle-up",
+    "why": "Trazioni pulite e al petto, dip e transizione alla sbarra bassa.",
+    "days": [
+     [
+      "activation",
+      "strict"
+     ],
+     [
+      "activation",
+      "power",
+      "dip"
+     ],
+     [
+      "activation",
+      "skill"
+     ]
+    ],
+    "needsShoulder": true
+   },
+   {
+    "id": "mu",
+    "min": 12,
+    "minMu": 1,
+    "label": "Muscle-up",
+    "why": "Serie di muscle-up con margine, trazioni pulite e dip.",
+    "days": [
+     [
+      "activation",
+      "strict"
+     ],
+     [
+      "activation",
+      "mu",
+      "dip"
+     ],
+     [
+      "activation",
+      "skill"
+     ]
+    ],
+    "needsShoulder": true
+   }
+  ],
+  "date": "2027-05-30"
+ },
+ "finisherOptions": [
+  {
+   "id": "a_spinning",
+   "label": "Bici da spinning a intervalli"
+  },
+  {
+   "id": "a_recumbent",
+   "label": "Cyclette orizzontale a intervalli"
+  },
+  {
+   "id": "a_bag",
+   "label": "Sacco da pugilato a intervalli"
+  },
+  {
+   "id": "a_stepper",
+   "label": "Macchina a scalini a ritmo costante"
+  },
+  {
+   "id": "none",
+   "label": "Nessun finale"
+  }
+ ],
+ "cardioDays": [
+  {
+   "label": "Aerobico · Intervalli",
+   "mode": "hiit",
+   "note": "Scatti brevi e recuperi attivi: la modalità più efficace sul grasso viscerale"
+  },
+  {
+   "label": "Aerobico · Ritmo costante",
+   "mode": "steady",
+   "note": "Ritmo moderato continuo: riesci a parlare a frasi brevi"
+  }
+ ],
+ "week": {
+  "days": 6,
+  "pattern": [
+   "strength",
+   "cardio",
+   "strength",
+   "cardio",
+   "strength",
+   "stretch"
+  ],
+  "cardioSwapFrom": "2026-11-15",
+  "note": "Sei sedute: forza A, aerobico a ritmo costante, forza B, aerobico a intervalli, forza C, mobilità (sempre l'ultima). Fino al 15/11/2026 le due sedute aerobiche erano in ordine inverso.",
+  "restMonday": {
+   "from": "2027-03-01",
+   "to": "2027-05-31",
+   "minRide": 180,
+   "note": "In primavera, il lunedì dopo un'uscita in MTB di 3 ore o più è di riposo: la seduta che salta è la mobilità (da aprile, quella al posto di Forza C). Regola operativa dell'app, scelta dall'utente il 15/11/2026 dopo la valutazione del sonno."
+  }
+ },
+ "morning": {
+  "durations": [
+   10,
+   15
+  ],
+  "note": "Cinque sessioni brevi, a casa e senza attrezzi pesanti, nei giorni 1-5; il sesto giorno c'è solo la seduta di mobilità del programma.",
+  "source": "ACSM (Garber et al. 2011): allungare quasi ogni giorno dà i risultati migliori; tenute di 30-60 s negli adulti più anziani, ~60 s totali per muscolo. Behm et al. 2016, Appl Physiol Nutr Metab 41(1):1-11 (revisione sistematica): con meno di 60 s di allungamento statico per muscolo il calo di prestazione è minimo (−1,1%, contro −4,6% oltre i 60 s); la mobilità dinamica prima dell'attività la migliora. Scelta dei distretti: regola operativa dell'app",
+  "focus": {
+   "strength-0": {
+    "label": "in vista di Forza A: anche, quadricipiti e polpacci",
+    "dyn": [
+     "Mobilità anca",
+     "Mobilità globale"
+    ],
+    "stat": [
+     "Anca",
+     "Quadricipiti",
+     "Polpacci",
+     "Glutei",
+     "Adduttori"
+    ]
+   },
+   "strength-1": {
+    "label": "in vista di Forza B: spalle, torace e colonna",
+    "dyn": [
+     "Mobilità spalle",
+     "Mobilità colonna"
+    ],
+    "stat": [
+     "Petto",
+     "Dorso",
+     "Colonna",
+     "Collo",
+     "Anca"
+    ]
+   },
+   "strength-2": {
+    "label": "in vista di Forza C: catena posteriore e colonna",
+    "dyn": [
+     "Mobilità colonna",
+     "Mobilità globale"
+    ],
+    "stat": [
+     "Catena posteriore",
+     "Colonna",
+     "Glutei",
+     "Anca",
+     "Dorso"
+    ]
+   },
+   "cardio-0": {
+    "label": "in vista degli intervalli: anche, polpacci e quadricipiti",
+    "dyn": [
+     "Mobilità anca",
+     "Mobilità globale"
+    ],
+    "stat": [
+     "Polpacci",
+     "Anca",
+     "Quadricipiti",
+     "Catena posteriore",
+     "Glutei"
+    ]
+   },
+   "cardio-1": {
+    "label": "in vista del ritmo costante: anche, colonna e spalle",
+    "dyn": [
+     "Mobilità anca",
+     "Mobilità colonna",
+     "Mobilità spalle"
+    ],
+    "stat": [
+     "Anca",
+     "Colonna",
+     "Petto",
+     "Polpacci",
+     "Adduttori"
+    ]
+   },
+   "stretch": {
+    "label": "mobilità generale",
+    "dyn": [
+     "Mobilità colonna",
+     "Mobilità spalle",
+     "Mobilità anca"
+    ],
+    "stat": [
+     "Colonna",
+     "Anca",
+     "Petto",
+     "Catena posteriore",
+     "Collo"
+    ]
+   }
+  }
+ },
+ "spartan": {
+  "name": "Spartan Race Sprint · Misano Adriatico",
+  "date": "2027-09-18",
+  "dateTo": "2027-09-19",
+  "place": "Misano Adriatico (RN)",
+  "distanceKm": 5,
+  "obstacles": 20,
+  "specFrom": "2026-12-07",
+  "recoveryDays": 7,
+  "runFrom": "2027-03-01",
+  "walk": {
+   "exId": "o_hillwalk"
+  },
+  "aim": "Preparazione ancorata ad aprile: entro il 24-25 aprile 2027 raggiungere i traguardi dei check (trazioni, sospensione, burpees, corsa-camminata), come se la gara fosse allora. Da aprile alla gara di settembre il piano continua con gli stessi contenuti e i check chiedono di superare il proprio massimo: migliorare le prestazioni. Divertirti e superare gli ostacoli in sicurezza, con forma corretta. Il lancio del giavellotto non lo fai: al suo posto i 30 burpees.",
+  "targets": {
+   "pullups": 8,
+   "hang": 60,
+   "burpees": 30,
+   "runKm": 5
+  },
+  "burpee": {
+   "exId": "g_burpee",
+   "advance": [
+    15,
+    20
+   ],
+   "jumpLevel": 2
+  },
+  "run": {
+   "exId": "o_runwalk",
+   "levels": [
+    {
+     "run": 60,
+     "walk": 120,
+     "reps": 6
+    },
+    {
+     "run": 60,
+     "walk": 90,
+     "reps": 8
+    },
+    {
+     "run": 120,
+     "walk": 120,
+     "reps": 5
+    },
+    {
+     "run": 120,
+     "walk": 90,
+     "reps": 6
+    },
+    {
+     "run": 180,
+     "walk": 90,
+     "reps": 5
+    },
+    {
+     "run": 180,
+     "walk": 60,
+     "reps": 6
+    },
+    {
+     "run": 240,
+     "walk": 90,
+     "reps": 5
+    },
+    {
+     "run": 300,
+     "walk": 90,
+     "reps": 5
+    },
+    {
+     "run": 360,
+     "walk": 90,
+     "reps": 5
+    },
+    {
+     "run": 480,
+     "walk": 120,
+     "reps": 4
+    }
+   ]
+  },
+  "carries": [
+   "g_farmercarry",
+   "g_gobletcarry",
+   "g_sandbagcarry"
+  ],
+  "obstacles_list": [
+   {
+    "name": "Monkey bars e multi-rig",
+    "need": "appendersi e spostarsi di presa in presa",
+    "keys": [
+     "hang",
+     "pull"
+    ]
+   },
+   {
+    "name": "Arrampicata sulla fune (4,8 m)",
+    "need": "trazione e blocco della fune con i piedi",
+    "keys": [
+     "pull"
+    ],
+    "tip": "La tecnica dei piedi (la fune passa sotto un piede e sopra l'altro) non si allena senza fune: se in palestra non c'è, guarda un video ufficiale e provala alla prima occasione. Se non riesce: 30 burpees."
+   },
+   {
+    "name": "Muri da 1,2 a 2,4 m e muro inclinato",
+    "need": "tirarsi su e scendere controllati",
+    "keys": [
+     "pull"
+    ],
+    "tip": "Scendi dal muro restando appeso a braccia tese prima di lasciare: il salto si accorcia e il ginocchio ringrazia."
+   },
+   {
+    "name": "Hercules hoist e reti",
+    "need": "tirare una fune, salire una rete",
+    "keys": [
+     "pull",
+     "hang"
+    ]
+   },
+   {
+    "name": "Trasporti: sacco 27 kg, secchio, pietra, tanica",
+    "need": "presa, schiena dritta, passi corti",
+    "keys": [
+     "carry"
+    ]
+   },
+   {
+    "name": "Giavellotto",
+    "need": "lo salti: 30 burpees",
+    "keys": [
+     "burpee"
+    ]
+   },
+   {
+    "name": "Strisciare sotto il filo spinato",
+    "need": "avanzare su avambracci e ginocchia",
+    "keys": [],
+    "tip": "Il ginocchio in appoggio può dare fastidio: ginocchiere morbide o rotolamento laterale dove è permesso."
+   },
+   {
+    "name": "Trave e slack line",
+    "need": "equilibrio",
+    "keys": [],
+    "tip": "Lavoro di core e mobilità del programma; sguardo avanti, passi corti. Se cadi: 30 burpees."
+   },
+   {
+    "name": "5 km su terreno vario",
+    "need": "correre e camminare senza dolore",
+    "keys": [
+     "run"
+    ]
+   }
+  ],
+  "sources": [
+   "Spartan Race – pagina ufficiale della gara di Misano Adriatico, 18-19 settembre 2027 (Arena 58): Sprint 5 km e 20 ostacoli il 18-19, Super 10 km e 25 ostacoli il 19, Beast 21 km e 30 ostacoli il 18 (letta il 15/11/2026; la pagina riporta anche la dicitura «18-29 settembre» nella descrizione: il formato scelto va confermato all'iscrizione)",
+   "Spartan – Instructions and Training Tips for Every Spartan Race Obstacle (guida ufficiale agli ostacoli)",
+   "Spartan Editors 2025 – 5 Common Mistakes to Avoid When Doing Burpees: petto a terra, salto con talloni e punte sollevati, mani sopra le orecchie; 30 burpees per ostacolo fallito nelle Sprint",
+   "Esculier et al. 2018, Br J Sports Med 52(10):659-666 – corridori con dolore femoro-rotuleo: dolore entro 2/10 durante la corsa, ritorno al livello di partenza entro un'ora, nessun aumento la mattina dopo; prima distanza, poi velocità e salite",
+   "Willy et al. 2019, JOSPT 49(9):CPG1-CPG95 – dolore femoro-rotuleo: aumento graduale dell'attività",
+   "Schumann et al. 2022, Sports Med 52(3) – allenamento concorrente: nessuna interferenza su ipertrofia e forza massima; forza esplosiva ridotta se nella stessa seduta"
+  ],
+  "simFrom": "2027-03-01",
+  "prep": {
+   "date": "2027-04-24",
+   "dateTo": "2027-04-25"
+  }
+ },
+ "tuscany": {
+  "name": "Tuscany Trail",
+  "place": "Campiglia Marittima",
+  "event": "2027-05-19",
+  "eventEnd": "2027-05-25",
+  "start": "2026-11-02",
+  "taperFrom": "2027-05-05",
+  "firstMin": 90,
+  "stepMin": 15,
+  "minMin": 60,
+  "taperMin": 75,
+  "caps": [
+   {
+    "until": "2027-01-31",
+    "min": 150
+   },
+   {
+    "until": "2027-03-31",
+    "min": 210
+   },
+   {
+    "until": "2027-05-04",
+    "min": 300
+   }
+  ],
+  "loadedFrom": "2027-02-01",
+  "longLoaded": "2027-05-02",
+  "longLoadedAlt": "2027-04-11",
+  "spartanSunday": "2027-04-25",
+  "routes": "440 km (percorso lungo, edizione 2026) oppure 160 km (Newbie)",
+  "keep": {
+   "from": "2027-06-06",
+   "pct": 0.5,
+   "min": 90,
+   "max": 150,
+   "source": "Spiering et al. 2021, J Strength Cond Res 35(5):1449-1458: nella popolazione generale la resistenza si mantiene fino a 15 settimane con appena 2 sedute a settimana oppure con il volume ridotto del 33-66%, se l'intensità resta la stessa. Uscita al 50% della più lunga preparata, fra 90 e 150 minuti: regola operativa dell'app"
+  }
+ },
+ "maintenance": {
+  "from": "2027-04-01",
+  "to": "2027-05-30",
+  "dropTmpl": 2,
+  "keySets": 3,
+  "otherSets": 2,
+  "source": "Spiering et al. 2021, J Strength Cond Res 35(5):1449-1458: la forza si mantiene riducendo frequenza e volume se resta l'intensità; negli adulti più anziani per conservare la massa muscolare possono servire 2 sedute a settimana con 2-3 serie per esercizio"
+ }
+}
