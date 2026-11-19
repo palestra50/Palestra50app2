@@ -17,7 +17,7 @@
    scheda aperta: niente più pulsante «Aggiornamento pronto», e nessun
    aggiornamento irrompe a metà seduta.
    ========================================================================== */
-const CACHE = 'palestra50-v110';
+const CACHE = 'palestra50-v111';
 
 const SHELL = [
   './', './index.html', './styles.css', './app.js',
@@ -26,8 +26,8 @@ const SHELL = [
 ];
 const STATIC = [
   './icon-192.png', './icon-512.png', './icon-512-maskable.png',
-  './splash-1170x2532.png', './splash-1125x2436.png',
-  './splash-1284x2778.png', './splash-1179x2556.png'
+  './launch-1170x2532.png', './launch-1125x2436.png',
+  './launch-1284x2778.png', './launch-1179x2556.png'
 ];
 
 const isShell = url =>

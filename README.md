@@ -17,7 +17,7 @@ Settimana tipo (dalla 5.0): **6 sedute a pranzo** — forza A, aerobico a ritmo 
 | `programs.json` | Programmi, template di seduta e parametri per obiettivo (serie/rip/recuperi) |
 | `poses.json` | Libreria di pose stilizzate usata per generare le illustrazioni SVG |
 | `quotes.json` | Frasi motivazionali dell'intro (123, in tre lingue) |
-| `sw.js`, `manifest.webmanifest`, `icon-*.png`, `splash-*.png` | Installazione, schermate di avvio e funzionamento offline |
+| `sw.js`, `manifest.webmanifest`, `icon-*.png`, `launch-*.png` | Installazione, schermate di avvio e funzionamento offline |
 
 **Perché niente framework.** L'app deve partire in un secondo con il telefono in mano tra una serie e l'altra e funzionare senza rete. HTML, CSS e JavaScript nativi, nessuna build, nessuna dipendenza: il codice che leggi è quello che gira sul telefono.
 
@@ -212,6 +212,12 @@ Da *Oggi* (sotto il calendario), dalla pagina *Progressi* e dal riquadro *Il per
 ### Esercizi in più a fine seduta (dalla 5.8)
 
 Nel riepilogo di fine seduta, *Ho ancora tempo: aggiungi esercizi*. Si dichiara quanto tempo resta (5, 10 o 15 minuti) e l'app propone quattro esercizi sui **gruppi più indietro** rispetto al volume previsto per la settimana, con le serie che stanno davvero in quei minuti (tempo di preparazione compreso). Toccandone uno si torna nella seduta, che riprende da quell'esercizio e si chiude normalmente.
+
+### Schermata di avvio senza scritte (9.11)
+
+- All'apertura dall'icona iOS mostra un'immagine fissa prima di caricare l'app. Le vecchie immagini (`splash-*.png`) contenevano logo e scritta disegnati con un carattere diverso da quello dell'intro, e comparivano per un attimo come una «brutta copia» dell'intro.
+- Sostituite da `launch-*.png` (stesse quattro misure di iPhone): solo lo sfondo dell'intro, ricavato dallo stesso gradiente del foglio di stile. All'apertura si vede lo sfondo e subito dopo parte l'intro animata. I file nuovi hanno un altro nome, così né Safari né il service worker riusano le immagini vecchie.
+- iOS può conservare l'immagine di avvio presa al momento dell'installazione: se dopo l'aggiornamento compare ancora la vecchia, va rimossa e riaggiunta l'icona, **dopo aver esportato il backup**.
 
 ### Uscita in MTB saltata e band con maniglie a casa (9.10)
 - **Su richiesta dell'utente** (17/11/2026).
