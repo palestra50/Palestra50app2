@@ -725,7 +725,10 @@ function dose(goalKey, profile, ex) {
   let sets = Math.min(6, Math.max(2, g.sets + (profile.setsDelta || 0)));
   const perSide = !!(ex && ex.perSide);
   if (perSide && sets % 2) sets++;                 // arrotonda al pari superiore
-  const reps = Math.round(g.repsLow + (g.repsHigh - g.repsLow) * profile.repsBias);
+  let reps = Math.round(g.repsLow + (g.repsHigh - g.repsLow) * profile.repsBias);
+  // (9.12) al carico più alto dell'attrezzo si progredisce con le ripetizioni
+  const ceil = ceilingReps(ex, goalKey, reps, profile);
+  if (ceil) reps = ceil.reps;
   // la tenuta vale solo per gli esercizi a tempo (allungamenti, isometrie)
   const timed = goalKey === 'stretch' || !ex || ex.load === 'time';
   const bonus = timed ? holdBonus(ex) : 0;
@@ -734,9 +737,50 @@ function dose(goalKey, profile, ex) {
   // registrava i secondi e l'esercizio restava senza valutazione
   const baseHold = g.hold || (ex && ex.load === 'time' ? 20 + reps : 30);
   return {
-    goal: goalKey, goalLabel: g.label, sets, reps, perSide,
+    goal: goalKey, goalLabel: g.label, sets, reps, perSide, ...(ceil ? { ceilReps: ceil } : {}),
     rest: g.rest, hold: timed ? baseHold + bonus : 0, holdBonus: bonus, rpe: g.rpe, source: g.source
   };
+}
+/* (9.12) CARICO AL TETTO DELL'ATTREZZO
+   Quando l'ultima seduta è stata fatta con il carico più alto disponibile
+   (per esempio il kettlebell da 20 kg, il più pesante della sala) il carico
+   non può salire. Prima la seduta riproponeva comunque le ripetizioni della
+   fascia dell'obiettivo, anche molto sotto quelle già fatte (20 e 25 slanci
+   registrati, 6 proposti), mentre il consiglio diceva «aumenta le
+   ripetizioni»: due indicazioni in contraddizione.
+   Ora, negli obiettivi in cui contano le ripetizioni (ipertrofia, resistenza,
+   tono delle gambe, core), la seduta propone almeno le ripetizioni che hai
+   completato in TUTTE le serie l'ultima volta a quel carico, fino a un tetto
+   per obiettivo. Negli obiettivi di forza ed esplosività le ripetizioni
+   restano quelle dell'obiettivo: più ripetizioni cambierebbero il tipo di
+   lavoro (per l'esplosività l'ACSM 2026 indica volume basso-moderato e ogni
+   ripetizione alla massima velocità). Mai in settimana di scarico, mai dopo
+   una seduta segnata come troppo pesante.
+   Tetti e criterio: regola operativa dell'app. */
+const REP_GROW_CAP = { hypertrophy: 20, endurance: 30, legTone: 30, core: 25 };
+function ceilingReps(ex, goalKey, reps, profile) {
+  if (!ex || ex.load !== 'weight' || isAssist(ex) || !REP_GROW_CAP[goalKey]) return null;
+  if (profile && profile.label === 'Scarico') return null;
+  const scale = rackOf(ex);
+  if (!scale) return null;
+  const top = scale[scale.length - 1];
+  const last = lastEntry(ex.id);
+  if (!last || last.feedback === 'down') return null;
+  const rows = setRows(last);
+  const atTop = l => { const n = numLoad(l); return n !== null && snapLoad(ex, n, 0) >= top; };
+  let done;
+  if (rows) {
+    const valid = rows.filter(r => isFinite(+r.reps) && +r.reps > 0);
+    if (!valid.length || !valid.every(r => atTop(r.load || last.load))) return null;
+    done = Math.min(...valid.map(r => +r.reps));
+  } else {
+    if (!atTop(last.load)) return null;
+    done = +(isFinite(last.repsDone) ? last.repsDone : last.reps);
+  }
+  if (!isFinite(done) || done <= reps) return null;
+  const cap = REP_GROW_CAP[goalKey];
+  const r = Math.min(cap, done);
+  return r > reps ? { reps: r, base: reps, done, cap, top } : null;
 }
 /* Etichetta della singola serie: per gli unilaterali alterna sinistra e destra. */
 function setLabel(it, i) {
@@ -1081,6 +1125,17 @@ function e1rmWithRir(l) {
   const pool = cand.some(c => c.known) ? cand.filter(c => c.known) : cand;
   return pool.reduce((a, c) => (!a || c.v > a.v) ? c : a, null);
 }
+/* (9.12) Quando l'ultima seduta aveva un obiettivo di ripetizioni diverso da
+   oggi (il leg press alterna 6-8 ripetizioni pesanti e 15-20 leggere nella
+   stessa settimana) la riga lo dice: senza, 8 ripetizioni proposte dopo 20
+   fatte sembravano un errore. */
+function lastGoalNote(sg, it) {
+  const ref = sg && sg.last;
+  if (!ref || !it || !isFinite(it.reps) || it.ceilReps) return '';
+  const t = isFinite(ref.repsTarget) ? ref.repsTarget : ref.reps;
+  if (!isFinite(t) || Math.abs(t - it.reps) < 2) return '';
+  return ` (seduta da ${t} rip.${sg.converted ? `: carico ricalcolato per ${it.reps}` : ''})`;
+}
 /* Testo compatto dell'ultima seduta: «3×15 a 52,5 kg» o serie per serie. */
 function lastSetsText(l) {
   const kg = x => String(x).replace('.', ',');
@@ -1088,12 +1143,15 @@ function lastSetsText(l) {
   if (rows) {
     const same = rows.every(r => String(r.load) === String(rows[0].load) && r.reps === rows[0].reps);
     if (same) return `${rows.length}×${rows[0].reps} a ${kg(rows[0].load || l.load)} kg`;
-    return rows.map(r => `${kg(r.load || l.load)}×${r.reps}`).join(' · ') + ' kg';
+    // (9.12) ripetizioni prima, poi il carico con l'unità: «12×30 kg». Con il
+    // carico in testa («30×12 kg») l'unità finiva accanto alle ripetizioni.
+    return rows.map(r => `${r.reps}×${kg(r.load || l.load)}`).join(' · ') + ' kg';
   }
   return `${l.sets}×${isFinite(l.repsDone) ? l.repsDone : l.reps} a ${kg(l.load)} kg`;
 }
 function convertedLoad(ex, it, deloadNow) {
   if (!it || !ex || ex.load !== 'weight' || isAssist(ex) || !isFinite(it.reps) || it.reps <= 0) return null;
+  if (it.ceilReps) return null;          // (9.12) al tetto il carico resta, crescono le ripetizioni
   const ref = lastRealEntry(ex.id);
   if (!ref) return null;
   const refTarget = isFinite(ref.repsTarget) ? ref.repsTarget : ref.reps;
@@ -1117,6 +1175,29 @@ function convertedLoad(ex, it, deloadNow) {
   return { val: v, target, ref, rirT, reason, up: v > base, held };
 }
 
+/* (9.12) Consiglio al carico più alto disponibile, coerente con le
+   ripetizioni proposte (prima diceva «aumenta le ripetizioni» anche quando la
+   seduta ne proponeva 6). */
+function topReason(ex, it) {
+  const g = it && PROG.goals[it.goalKey || it.goal];
+  const kgT = x => String(x).replace('.', ',');
+  const top = (rackOf(ex) || []).slice(-1)[0];
+  const head = `Sei al carico più alto disponibile${top ? ' (' + kgT(top) + ' kg)' : ''}`;
+  if (it && it.ceilReps) {
+    const c = it.ceilReps;
+    return c.reps >= c.cap
+      ? `${head}: hai raggiunto anche il tetto di ${c.cap} ripetizioni per questo obiettivo. Per progredire ancora passa a una variante più impegnativa con «Cambia esercizio».`
+      : `${head}: si progredisce con le ripetizioni. Oggi ${c.reps}, quante ne hai completate in ogni serie l'ultima volta (la fascia dell'obiettivo sarebbe ${c.base}).`;
+  }
+  const key = it && (it.goalKey || it.goal);
+  if (key && REP_GROW_CAP[key]) {
+    return `${head}: si progredisce con le ripetizioni. Quando completi più ripetizioni in tutte le serie, la seduta successiva le propone.`;
+  }
+  const what = key === 'power'
+    ? 'per l\'esplosività le ripetizioni restano poche: ogni ripetizione alla massima velocità, e la serie finisce quando il movimento rallenta. Ripetizioni in più la trasformano in lavoro di resistenza'
+    : `per ${g ? g.label.toLowerCase() : 'questo obiettivo'} le ripetizioni restano nella fascia dell'obiettivo: ripetizioni in più cambierebbero il tipo di lavoro`;
+  return `${head}: ${what}. Se resta facile, passa a una variante più impegnativa con «Cambia esercizio».`;
+}
 function suggestLoadCore(ex, deloadNow, it) {
   const last = lastEntry(ex.id);
   if (!last) return null;
@@ -1217,7 +1298,7 @@ function suggestLoadCore(ex, deloadNow, it) {
         ? 'Regola 2-for-2 soddisfatta: sei pronto a provare senza assistenza.'
         : `Regola 2-for-2 soddisfatta: assistenza ridotta a ${kg(val)} kg, uno scalino del pacco pesi.`;
     } else if (atTop) {
-      info.reason = 'Sei al carico più alto disponibile su questo attrezzo: aumenta le ripetizioni o passa a una variante più difficile.';
+      info.reason = topReason(ex, it);
     } else {
       val = move(true, 1 + pct);
       const d = val - base;
@@ -5325,7 +5406,7 @@ function recordText(r) {
   if (r.v.kind === 'e1rm') {
     const rows = setRows(r.l) || [];
     const top = rows.length ? rows.reduce((a, x) => (numLoad(x.load) || 0) * (1 + (+x.reps || 0) / 30) > (numLoad(a.load) || 0) * (1 + (+a.reps || 0) / 30) ? x : a) : { load: r.l.load, reps: r.l.repsDone };
-    return `massimale stimato <b>${kg(r.v.v)} kg</b> · ${kg(numLoad(top.load) || 0)} kg × ${top.reps}`;
+    return `massimale stimato <b>${kg(r.v.v)} kg</b> · ${top.reps} × ${kg(numLoad(top.load) || 0)} kg`;
   }
   if (r.v.kind === 'hold') return `<b>${Math.round(r.v.v)} s</b> di tenuta`;
   return `<b>${r.v.v}</b> di fila${levelsOf(ex) ? ` · ${esc(r.l.load || '')}` : ''}`;
@@ -7360,7 +7441,7 @@ function renderHomeLunch() {
     // (7S 1) carico proposto per le ripetizioni di oggi e ultima seduta
     const sg = ex && ex.load === 'weight' && !isAssist(ex) ? suggestLoad(ex, it) : null;
     const sgTxt = sg && sg.value && sg.last && numLoad(sg.last.load) > 0
-      ? `<span class="small sugline">Proposto <b>${esc(String(sg.value).replace('.', ','))} kg</b> · ultima ${esc(lastSetsText(sg.last))}</span>` : '';
+      ? `<span class="small sugline">Proposto <b>${esc(String(sg.value).replace('.', ','))} kg</b> · ultima ${esc(lastSetsText(sg.last))}${esc(lastGoalNote(sg, it))}</span>` : '';
     const ssHead = it.ss && it.ssRole === 'A' ? `<li class="sshead"><b>Superserie ${it.ssN || ''}</b> · alterna i due esercizi qui sotto: una serie del primo, 20 s per spostarti, una serie del secondo, poi il recupero. Ripeti per tutte le serie.</li>` : '';
     return ssHead + `<li data-plan="${i}" class="${it.block === 'pullup' ? 'pullrow' : ''}${it.ss ? ' ssrow' : ''}"><div class="fig">${figureFor(ex, 1, { ground: false })}</div>
       <div class="nm"><b>${esc(ex.name)}</b>${sgTxt}<span class="small muted">${esc(ex.group)}${it.note ? ' · ' + esc(it.note) : ''}</span></div>
@@ -9315,7 +9396,7 @@ function sessionRowsHtml(logs) {
         <div class="small muted">non fatto · nessuna serie, non conta nella progressione</div></div></li>` : `<li>
       <div class="nm" style="flex:1"><b>${esc(l.name)}</b>
         <div class="small muted">${Array.isArray(l.setLog) && l.setLog.length
-          ? l.setLog.map(r => `${r.load && (numLoad(r.load) !== null || r.load !== l.load) ? String(r.load).replace('.', ',') + '×' : ''}${r.hold ? r.hold + 's' : r.reps + (numLoad(r.load) === null ? ' rip' : '')}${hasNum(r.rir) ? ` (${r.rir}${l.rirUnit === 's' ? 's' : ''})` : ''}`).join(' · ')
+          ? l.setLog.map(r => `${r.hold ? r.hold + 's' : r.reps + (numLoad(r.load) === null ? ' rip' : '')}${r.load && (numLoad(r.load) !== null || r.load !== l.load) ? (numLoad(r.load) !== null ? '×' + String(r.load).replace('.', ',') + (exById(l.exId) && exById(l.exId).load === 'weight' ? ' kg' : '') : ' · ' + String(r.load)) : ''}${hasNum(r.rir) ? ` (${r.rir}${l.rirUnit === 's' ? 's' : ''})` : ''}`).join(' · ')
           : `${l.sets}×${l.hold ? l.hold + 's' : (l.repsDone || l.reps)}${l.rirUnit === 's' && hasNum(l.rir) ? ' · ' + l.rir + 's di margine' : (hasNum(l.rir) ? ' · RIR ' + l.rir : '')}`}</div>
         ${l.rateText ? `<div class="small muted">${starsHtml(l.stars)} ${esc(l.rateText)}</div>` : ''}</div>
       <div class="val">${esc(l.load || '—')} ${arrow(l.feedback)}</div>

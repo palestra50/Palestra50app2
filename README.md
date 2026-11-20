@@ -213,6 +213,15 @@ Da *Oggi* (sotto il calendario), dalla pagina *Progressi* e dal riquadro *Il per
 
 Nel riepilogo di fine seduta, *Ho ancora tempo: aggiungi esercizi*. Si dichiara quanto tempo resta (5, 10 o 15 minuti) e l'app propone quattro esercizi sui **gruppi più indietro** rispetto al volume previsto per la settimana, con le serie che stanno davvero in quei minuti (tempo di preparazione compreso). Toccandone uno si torna nella seduta, che riprende da quell'esercizio e si chiude normalmente.
 
+### Ultima prestazione «ripetizioni×carico» e ripetizioni al carico massimo (9.12)
+
+- **Formato**: la riga «ultima» serie per serie mette prima le ripetizioni e poi il carico, «12×30 · 15×30 kg». Prima era «30×12 · 30×15 kg», con l'unità accanto alle ripetizioni. Stesso ordine nello storico delle sedute e nel massimale stimato.
+- **Obiettivo diverso dall'ultima volta**: alcuni esercizi cambiano fascia di ripetizioni nella stessa settimana (il leg press fa 6-8 ripetizioni pesanti in Forza A e C, 15-20 più leggere in Forza B; il carico viene ricalcolato dal massimale stimato). Quando l'ultima seduta aveva un obiettivo diverso, la riga lo dice: «(seduta da 20 rip.: carico ricalcolato per 8)».
+- **Carico più alto disponibile**: se l'ultima seduta è stata fatta con il carico massimo dell'attrezzo (kettlebell da 20 kg, manubri da 40, pacco pesi da 120), il carico non può salire.
+  - Negli obiettivi in cui contano le ripetizioni (ipertrofia, resistenza, tono delle gambe, core) la seduta propone almeno le ripetizioni completate in **tutte** le serie l'ultima volta, fino a un tetto (20 per l'ipertrofia, 25 per il core, 30 per resistenza e tono delle gambe). Raggiunto il tetto, l'app propone di passare a una variante più impegnativa. Mai in settimana di scarico, mai dopo una seduta segnata come troppo pesante. Tetti e criterio: regola operativa dell'app.
+  - Negli obiettivi di forza ed esplosività le ripetizioni restano nella fascia dell'obiettivo, e il consiglio lo spiega. Prima diceva «aumenta le ripetizioni» anche quando la seduta ne proponeva 6. Per l'esplosività l'ACSM 2026 indica carichi moderati, volume basso-moderato e ogni ripetizione alla massima velocità: 20-25 slanci di fila sono lavoro di resistenza, non di esplosività.
+- **Banco di prova**: `regq.mjs` usava nomi di pagina sbagliati («today», «library») e contava come sforamento il finale aerobico che dalla 8.14 si aggiunge di proposito oltre la durata scelta. Corretto: ora passa per intero. Nuova prova `t912a.mjs`.
+
 ### Schermata di avvio senza scritte (9.11)
 
 - All'apertura dall'icona iOS mostra un'immagine fissa prima di caricare l'app. Le vecchie immagini (`splash-*.png`) contenevano logo e scritta disegnati con un carattere diverso da quello dell'intro, e comparivano per un attimo come una «brutta copia» dell'intro.
