@@ -3566,6 +3566,97 @@ const MTB_MODES = {
 };
 const rideMode = r => (r && MTB_MODES[r.mode]) ? r.mode : 'mtb';
 const rideCycling = r => MTB_MODES[rideMode(r)].cycling;
+/* ---------------------------------------------------------------------------
+   (9.13) ALLUNGAMENTI DOPO L'USCITA
+   Al termine dell'uscita in MTB e delle sue alternative (spinning, cyclette
+   orizzontale, camminata) l'app propone una breve seduta di allungamenti
+   statici dei muscoli che quell'attività ha usato o tenuto accorciati.
+   · Quando: subito dopo, a muscoli caldi. «Flexibility exercise is most
+     effective when the muscle temperature is elevated through light-to-
+     moderate cardiorespiratory or muscular endurance exercise» (Garber et al.
+     2011, ACSM Position Stand, MSSE 43(7):1334-1359, paragrafo «When should
+     stretching be performed?»).
+   · Quanto: tenute da 30 s, che nelle persone più anziane possono arrivare a
+     30-60 s con più beneficio, per circa 60 s in tutto per esercizio (stessa
+     fonte, tabella 2). Prima una tenuta per muscolo su tutti, poi la seconda
+     ai primi della lista, poi tenute da 45 s, finché c'è tempo (10 o 15
+     minuti, a scelta).
+   · Quali: in bici anca e ginocchio lavorano in flessione e l'anca non si
+     estende mai del tutto; in MTB e sullo spinning il busto resta chino sul
+     manubrio, in MTB anche con lo sguardo avanti (collo in estensione); in
+     salita a piedi lavorano soprattutto polpacci, glutei e femorali. La scelta
+     dei muscoli per attività è una regola operativa dell'app, non una
+     citazione. Ogni posto ha alternative: valgono le precauzioni attive
+     (ginocchio, inguine, spalla, «mi dà fastidio») come nella mobilità breve.
+   · La seduta è fuori programma (come la seduta libera): non fa avanzare la
+     settimana, non conta nei minuti aerobici né nella stima dei tempi.
+--------------------------------------------------------------------------- */
+const COOL_SLOTS = {
+  hipflex: { why: 'flessori dell\'anca, sempre piegati sui pedali', ids: ['s_hipflexor'] },
+  quads: { why: 'quadricipiti, il motore della pedalata', ids: ['s_quadstretch', 's_quadside'] },
+  hams: { why: 'femorali', ids: ['s_hamsupine', 's_hamstringband', 's_hamseated'] },
+  glutes: { why: 'glutei', ids: ['s_glutestretch', 's_9090'] },
+  calves: { why: 'polpacci', ids: ['s_calfwall', 's_ankleflex'] },
+  chest: { why: 'petto, chiuso dalla posizione sul manubrio', ids: ['s_chestdoor', 's_chestback'] },
+  neck: { why: 'collo, in estensione per guardare avanti', ids: ['s_neckext', 's_neck'] }
+};
+const COOL_PLAN = {
+  mtb: ['hipflex', 'quads', 'hams', 'glutes', 'calves', 'chest', 'neck'],
+  spin: ['hipflex', 'quads', 'hams', 'glutes', 'calves', 'chest'],
+  recumbent: ['hipflex', 'quads', 'hams', 'glutes', 'calves'],
+  walk: ['calves', 'hams', 'hipflex', 'quads', 'glutes']
+};
+const COOL_WHY = { walk: { calves: 'polpacci, i più impegnati in salita', hams: 'femorali', hipflex: 'flessori dell\'anca', quads: 'quadricipiti, soprattutto in discesa', glutes: 'glutei, la spinta in salita' } };
+function buildCooldown(mode, minutes) {
+  mode = COOL_PLAN[mode] ? mode : 'mtb';
+  const budget = minutes || S.coolMin || 10;
+  const meta = sessionMeta(S.sessionIndex);
+  const used = new Set(), items = [];
+  COOL_PLAN[mode].forEach(k => {
+    const cands = COOL_SLOTS[k].ids.map(id => exById(id)).filter(e => e && !e.retired && !used.has(e.id));
+    const ex = applyCare(cands)[0];
+    if (!ex) return;
+    used.add(ex.id);
+    const d = dose('stretch', meta.profile, ex);
+    d.sets = ex.perSide ? 2 : 1; d.hold = 30; d.rest = 10;
+    const why = (COOL_WHY[mode] || {})[k] || COOL_SLOTS[k].why;
+    items.push({ exId: ex.id, goalKey: 'stretch', note: 'Dopo ' + (mode === 'walk' ? 'la camminata' : mode === 'mtb' ? 'l\'uscita' : 'la pedalata') + ' · ' + why, slot: k,
+      alt: { patterns: [ex.pattern], types: ['stretch'], relatedTo: ex.id, setup: 'home', keepDose: true }, ...d });
+  });
+  // 1. una tenuta per muscolo: se non stanno tutti, restano i primi della lista
+  while (items.length > 3 && estimateMinutes(items) > budget) items.pop();
+  // 2. la seconda tenuta (circa 60 s in tutto per muscolo), dai primi
+  items.forEach(it => {
+    const ex = exById(it.exId), add = ex.perSide ? 2 : 1;
+    it.sets += add;
+    if (estimateMinutes(items) > budget) it.sets -= add;
+  });
+  // 3. tenute da 45 s se avanza tempo (30-60 s nelle persone più anziane)
+  items.forEach(it => { it.hold = 45; if (estimateMinutes(items) > budget) it.hold = 30; });
+  const what = mode === 'mtb' ? 'l\'uscita in MTB' : mode === 'walk' ? 'la camminata' : mode === 'spin' ? 'lo spinning' : 'la cyclette';
+  return Object.assign({}, meta, {
+    label: 'Allungamenti dopo ' + what, type: 'stretch', kind: 'free', cool: mode, items,
+    minutes: estimateMinutes(items), budget, trimmed: false
+  });
+}
+/* Allungamenti dopo l'uscita già fatti oggi (per la stessa attività o un'altra). */
+const coolDoneToday = () => (S.sessionLog || []).filter(x => x && x.cool && sameDay(x.ts, Date.now())).pop() || null;
+function coolCardHtml(mode) {
+  const c = buildCooldown(mode, S.coolMin || 10);
+  const dn = coolDoneToday();
+  const names = c.items.map(it => (exById(it.exId) || {}).name).filter(Boolean);
+  return `<h3 style="font-size:16px;margin-top:14px">Al termine: allungamenti</h3>
+      <p class="small muted" style="margin:4px 0 8px">Subito dopo ${mode === 'walk' ? 'la camminata' : mode === 'mtb' ? 'l\'uscita' : 'la pedalata'}, a muscoli ancora caldi: ${esc(c.items.map(it => COOL_WHY[mode] && COOL_WHY[mode][it.slot] ? COOL_WHY[mode][it.slot].split(',')[0] : COOL_SLOTS[it.slot].why.split(',')[0]).join(', '))}. Tenute da 30-45 secondi, fino a sentire tensione, senza dolore.</p>
+      ${dn ? `<div class="notice" style="margin-bottom:8px">Allungamenti di oggi fatti: ${fmtMin(dn.minutes || c.minutes)}.</div>` : ''}
+      <div class="seg" id="coolMin">${[10, 15].map(m => `<button type="button" data-cm="${m}" aria-pressed="${(S.coolMin || 10) === m}">${m} minuti</button>`).join('')}</div>
+      <p class="small muted" style="margin:6px 0 0">${esc(names.join(' · '))}</p>
+      <button class="btn ${dn ? 'ghost' : ''}" id="coolGo" style="margin-top:10px">${dn ? 'Rifalli' : 'Inizia'} · circa ${fmtMin(c.minutes)}</button>`;
+}
+function startCooldown(mode) {
+  const c = buildCooldown(mode, S.coolMin || 10);
+  if (!c.items.length) { showToast('<div>Nessun allungamento disponibile con le precauzioni attive.</div>'); return; }
+  startSession(c, { fresh: true });
+}
 /* Durata proposta per la prossima uscita e uscita in attesa del riscontro
    del ginocchio. */
 function mtbState() {
@@ -3898,6 +3989,7 @@ function renderHomeMtb() {
         <li><b>Camminata veloce o in salita</b> all'aperto, se non hai una bici a disposizione: vale per i minuti aerobici, ma non fa salire la durata delle uscite.</li>
         <li><b>La corsa non è un'alternativa</b>: con il ginocchio l'app la usa solo come corsa-camminata a livelli per la Spartan Race, da marzo, e non per sedute di una-tre ore.</li>
       </ul></details>
+      ${coolCardHtml(mtbMode)}
       <h3 style="font-size:16px;margin-top:14px">${done ? 'Registra un\'altra seduta' : mtbMode === 'mtb' ? 'Registra l\'uscita' : 'Registra la seduta: ' + esc(MTB_MODES[mtbMode].name.toLowerCase())}</h3>
       <div class="field"><label>Durata (minuti)</label><input id="mtbMin" type="number" inputmode="numeric" min="1" max="900" value="${plan.min || 90}"></div>
       ${MTB_MODES[mtbMode].outdoor ? `<div class="field"><label>Distanza (km, facoltativa · dal Garmin)</label><input id="mtbKm" type="text" inputmode="decimal" placeholder="km"></div>` : ''}
@@ -3919,6 +4011,11 @@ function renderHomeMtb() {
     mtbMode = b.dataset.mode; renderHomeMtb();
     const h = document.getElementById('mtbModes'); if (h) h.scrollIntoView({ block: 'center' });
   });
+  document.querySelectorAll('#coolMin [data-cm]').forEach(b => b.onclick = () => {
+    S.coolMin = +b.dataset.cm; save(); renderHomeMtb();
+    const h = document.getElementById('coolMin'); if (h) h.scrollIntoView({ block: 'center' });
+  });
+  $('#coolGo').onclick = () => startCooldown(mtbMode);
   let knee = null;
   document.querySelectorAll('#mtbKnee button').forEach(b => b.onclick = () => {
     knee = knee === +b.dataset.v ? null : +b.dataset.v;
@@ -3948,8 +4045,23 @@ function renderHomeMtb() {
       loaded: !!($('#mtbLoad') && $('#mtbLoad').checked), knee, note: $('#mtbNote').value || '', mode: mtbMode });
     const hot = ride.intensity === 'vigorosa' && minutes >= 120;
     showToast(`<div><b>${mtbMode === 'mtb' ? 'Uscita registrata' : MTB_MODES[mtbMode].name + ' registrata'}</b>: ${fmtMin(minutes)}${ride.intensity ? ` · intensità ${ride.intensity} (${ride.hrPct}% della FC massima)` : ''}.${hot ? ` Per le uscite lunghe tieni il ritmo da conversazione: è quello che ${ttPhase(Date.now()) === 'keep' ? 'mantiene la base per i trail' : 'costruisce la base per il Tuscany Trail'}.` : ''} Domani l'app ti chiede com'è il ginocchio.</div>`, hot ? 6500 : 4200);
+    const usedMode = mtbMode;
     mtbMode = 'mtb';
     homeView = null; renderHome(); window.scrollTo(0, 0);
+    // (9.13) al termine: allungamenti dell'attività appena fatta
+    if (!coolDoneToday()) {
+      const c = buildCooldown(usedMode, S.coolMin || 10);
+      if (c.items.length) setTimeout(() => {
+        openModal(`<h2>Allungamenti adesso?</h2>
+          <p class="small">A muscoli ancora caldi gli allungamenti rendono di più. ${c.items.length} esercizi per ${usedMode === 'walk' ? 'la camminata' : usedMode === 'mtb' ? 'l\'uscita' : 'la pedalata'}, circa ${fmtMin(c.minutes)}. La seduta è fuori programma: la settimana non cambia.</p>
+          <p class="small muted">${esc(c.items.map(it => (exById(it.exId) || {}).name).join(' · '))}</p>
+          <button class="btn" id="coolNow" style="margin-top:12px">Inizia gli allungamenti</button>
+          <button class="btn ghost" id="coolLater" style="margin-top:10px">Non ora</button>
+          <p class="small muted" style="margin-top:8px">Li ritrovi nella pagina dell'uscita, sotto «Al termine: allungamenti».</p>`);
+        $('#coolNow').onclick = () => closeModal(() => startCooldown(usedMode));
+        $('#coolLater').onclick = () => closeModal();
+      }, 400);
+    }
   };
 }
 
@@ -8807,6 +8919,7 @@ function endSession() {
       est: s.minutes || estimateMinutes(s.items), budget: s.budget || null,     // (8) durata stimata
       ...(hasFeel ? { feel: Object.assign({ energy: null, sleep: null, knee: null, shoulder: null, groin: null }, feel) } : {}),
       ...(s.kind === 'morning' ? { mWeek: s.mWeek, mDay: s.mDay, mFocus: s.focusKey, mLunch: s.lunchLabel } : {}),
+      ...(s.cool ? { cool: s.cool } : {}),
       // (9.5) interrotta e conclusa lì: le serie previste (esclusi gli
       // esercizi aggiunti a fine seduta) servono per la percentuale svolta
       ...(current && current.partial ? { partial: true, plannedSets: s.items.filter(it => it.role !== 'extra').reduce((a, it) => a + Math.max(0, (it.sets || 0) - (it.extraSets || 0)), 0) } : {}),

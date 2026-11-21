@@ -213,6 +213,19 @@ Da *Oggi* (sotto il calendario), dalla pagina *Progressi* e dal riquadro *Il per
 
 Nel riepilogo di fine seduta, *Ho ancora tempo: aggiungi esercizi*. Si dichiara quanto tempo resta (5, 10 o 15 minuti) e l'app propone quattro esercizi sui **gruppi più indietro** rispetto al volume previsto per la settimana, con le serie che stanno davvero in quei minuti (tempo di preparazione compreso). Toccandone uno si torna nella seduta, che riprende da quell'esercizio e si chiude normalmente.
 
+### Allungamenti al termine dell'uscita in MTB e delle alternative (9.13)
+
+- Nella pagina dell'uscita c'è un nuovo riquadro, «Al termine: allungamenti», con una seduta di allungamenti statici da 10 o 15 minuti (la scelta resta memorizzata). Gli esercizi cambiano con l'attività scelta:
+  - **MTB**: flessori dell'anca, quadricipiti, femorali, glutei, polpacci, petto (busto chino sul manubrio) e collo (sguardo avanti);
+  - **spinning**: come la MTB, senza il collo;
+  - **cyclette orizzontale**: schiena appoggiata, quindi niente petto né collo;
+  - **camminata**: prima i polpacci, poi femorali, flessori dell'anca, quadricipiti e glutei.
+- Dopo il salvataggio dell'uscita l'app propone subito gli allungamenti («Allungamenti adesso?»), a meno che quel giorno non siano già stati fatti.
+- Dose: una tenuta da 30 s per muscolo su tutti, poi la seconda ai primi della lista (circa 60 s in tutto per esercizio), poi 45 s se avanza tempo. Fonte: Garber et al. 2011 (ACSM Position Stand, MSSE 43(7):1334-1359; testo aperto il 21/11/2026). Gli allungamenti rendono di più a muscoli caldi dopo attività aerobica leggera o moderata («Flexibility exercise is most effective when the muscle temperature is elevated…»), e nelle persone più anziane le tenute da 30-60 s possono dare più beneficio. La scelta dei muscoli per attività è una regola operativa dell'app.
+- Valgono le precauzioni attive (ginocchio, inguine, spalla, «mi dà fastidio»). Ogni esercizio ha alternative con «Cambia esercizio».
+- La seduta è fuori programma, registrata come seduta libera con il segno dell'attività (`cool`): non fa avanzare la settimana, non conta nei minuti aerobici né nella stima dei tempi.
+- Nuova prova `t913a.mjs`.
+
 ### Ultima prestazione «ripetizioni×carico» e ripetizioni al carico massimo (9.12)
 
 - **Formato**: la riga «ultima» serie per serie mette prima le ripetizioni e poi il carico, «12×30 · 15×30 kg». Prima era «30×12 · 30×15 kg», con l'unità accanto alle ripetizioni. Stesso ordine nello storico delle sedute e nel massimale stimato.
